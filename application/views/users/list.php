@@ -11,6 +11,7 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center">Danh sách người dùng</h2>
+        <a href="<?php echo base_url() . 'login/logout' ?>">Đăng xuất</a>
         <a href="<?php echo base_url() . 'users/add' ?>" class="btn btn-primary m-3">Thêm mới</a>
 
         <table class="table table-striped table-bordered">

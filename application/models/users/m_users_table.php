@@ -6,6 +6,7 @@ class M_users_table extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+        $this->load->library('session');
     }
     public function getAllUsers()
     {
@@ -31,8 +32,21 @@ class M_users_table extends CI_Model
         $this->db->update('users', $data);
     }
 
-    public function delete($id)
+    public function deleteUser($id)
     {
         $this->db->delete('users', array('id' => $id));
+    }
+
+    public function login($username, $password)
+    {
+        $password = md5($password);
+        $this->db->where('username', $username);
+        $this->db->where('password', $password);
+        $query = $this->db->get('users');
+
+        if ($query->num_rows() == 1) {
+            return $query->row();
+        }
+        return false;
     }
 }

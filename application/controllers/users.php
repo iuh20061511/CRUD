@@ -8,6 +8,9 @@ class Users extends CI_Controller
         $this->load->model('users/m_users_table', 'users_model');
         $this->load->helper('url');
         $this->load->library('form_validation');
+        if (!$this->session->userdata('user_id')) {
+            redirect('login');
+        }
     }
 
     public function index()
@@ -75,8 +78,18 @@ class Users extends CI_Controller
         }
     }
 
-    public function deleteUser($id)
+    public function delete($id)
     {
-        $this->users_model->delete($id);
+        $this->users_model->deleteUser($id);
+        redirect('users');
+    }
+
+    public function smarty()
+    {
+        $data = array(
+            'numbers' => array(1, 2, 3),
+            'name' => APPPATH,
+        );
+        $this->smarty->view('abc_view.tpl', $data);
     }
 }
