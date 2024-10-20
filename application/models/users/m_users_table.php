@@ -7,9 +7,10 @@ class M_users_table extends CI_Model
         parent::__construct();
         $this->load->database();
     }
-    public function getUser()
+    public function getAllUsers()
     {
-        $users = $this->db->get('users');
+        $query = $this->db->get('users');
+        return $query->result_array();
     }
 
     public function addUser($data)

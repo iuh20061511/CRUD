@@ -6,9 +6,14 @@ class Users extends CI_Controller
     {
         parent::__construct();
         $this->load->model('users/m_users_table', 'users_model');
+        $this->load->helper('url');
     }
 
-    public function index() {}
+    public function index()
+    {
+        $data['users'] = $this->users_model->getAllUsers();
+        $this->load->view('users/list', $data);
+    }
 
     public function add()
     {
@@ -35,7 +40,7 @@ class Users extends CI_Controller
                 'password' => md5($this->input->post('password'))
             );
             $this->users_model->addUser($data);
-            //redirect('user');
+            redirect('users');
         }
     }
 }
