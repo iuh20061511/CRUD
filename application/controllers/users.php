@@ -7,6 +7,7 @@ class Users extends CI_Controller
         parent::__construct();
         $this->load->model('users/m_users_table', 'users_model');
         $this->load->helper('url');
+        $this->load->library('form_validation');
     }
 
     public function index()
@@ -18,7 +19,6 @@ class Users extends CI_Controller
     public function add()
     {
 
-        $this->load->library('form_validation');
         $this->form_validation->set_rules('username', 'Tên đăng nhập', 'required|min_length[5]', array(
             'required' => 'Bạn phải nhập tên đăng nhập.',
             'min_length' => 'Tên đăng nhập phải có ít nhất 5 ký tự.'
@@ -42,5 +42,41 @@ class Users extends CI_Controller
             $this->users_model->addUser($data);
             redirect('users');
         }
+    }
+
+    public function update($user_id)
+    {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('username', 'Tên đăng nhập', 'required|min_length[5]', array(
+            'required' => 'Bạn phải nhập tên đăng nhập.',
+            'min_length' => 'Tên đăng nhập phải có ít nhất 5 ký tự.',
+        ));
+
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email', array(
+            'required' => 'Bạn phải nhập email.',
+            'valid_email' => 'Địa chỉ email không hợp lệ.'
+        ));
+
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['user'] = $this->users_model->getUserById($user_id);
+            $this->load->view('users/update', $data);
+        } else {
+
+            $data = array(
+                'username' => $this->input->post('username'),
+                'email' => $this->input->post('email'),
+
+            );
+
+            $this->users_model->updateUser($data, $user_id);
+            redirect('users');
+        }
+    }
+
+    public function deleteUser($id)
+    {
+        $this->users_model->delete($id);
     }
 }
