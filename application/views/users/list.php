@@ -19,7 +19,7 @@
                     <th>STT</th>
                     <th>Username</th>
                     <th>email</th>
-                    <th>Action</th>
+                    <th>Action </th>
                 </tr>
             </thead>
             <tbody>
