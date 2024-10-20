@@ -28,8 +28,8 @@
                         <td>1</td>
                         <td><?php echo $user['username'] ?></td>
                         <td><?php echo $user['email'] ?></td>
-                        <td><a href="" class="btn btn-success">EDIT</a>
-                            <a href="" class="btn btn-success">XÓA</a>
+                        <td><a href="<?php echo base_url() . 'users/update/' . $user['id'] ?>" class="btn btn-success">EDIT</a>
+                            <a href="<?php echo base_url() . 'users/delete/' . $user['id'] ?>" class="btn btn-success">XÓA</a>
                             <a href="" class="btn btn-success">VIEW</a>
                         </td>
                     </tr>
